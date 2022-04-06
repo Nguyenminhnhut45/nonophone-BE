@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/02c9f432-bc71-4864-a8ac-ce215f31beef/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/nonophone",
+    "appService.deploySubpath": "."
+}

@@ -1,35 +1,38 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
-    name: {
-        type: String, 
-        required: true,
-        max: 255,
-        
-    },
-    description: {
-        type : String, 
-        required: true,
+  name: {
+    type: String,
+    required: true,
+    max: 255,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  catogory: {
+    id: String,
+    name :String ,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+},
+{
+  timestamps: true,
+}
+);
 
-    },
-    price : {
-        type: Number, 
-        required: true, 
-    
+//tim theo id
 
-    },
-    catogory: {
-        type: String , 
-        required: true,
-        max: 255
-    },
-    image: {
-        type: String ,
-        required: true,
-    }
-    
-})
+ProductSchema.methods.getByIdProduct = async (id) => {
+  return Product.findOne(id);
+};
 
-
-const Product = mongoose.model('Product', ProductSchema);
+const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;

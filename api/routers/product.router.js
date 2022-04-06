@@ -1,15 +1,16 @@
 module.exports = (router)=> {
     //Import controller 
 
-
     const productController = require('../controllers/product.controller');
+    //get tat ca san pham
+    router.get ('/products/', productController.getAll);
+    //get san pham theo id
+    router.get ('/products/:id', productController.getByIdProduct);
+    //them san pham
+    router.post ('/products/', productController.postProduct);
+    //sua san pham
+    router.put ('/products/:id', productController.updateProduct);
+    //xoa san pham
+    router.delete ('/products/:id', productController.deleteProduct);
 
-
-    router.get('/product', productController.getAll);
-
-    router.post('/product/insert', productController.createProduct);
-
-    //srouter.get('/product/:id', productController.getByIdProduct);
-
-    router.delete('/product/:id', productController.deleteProduct);
 }

@@ -1,0 +1,15 @@
+GET http://localhost:3001/users/get-all
+
+###
+
+POST http://localhost:3001/users/register
+Content-Type: application/json
+
+{      
+     "name": "nhutnguyen",
+     "email":"nguyendminhnnnhsdssdut@gmail.com",
+     "password": "123", 
+     "address" : "",
+     "role": "admin"
+}
+
