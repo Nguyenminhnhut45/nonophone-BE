@@ -7,7 +7,7 @@ const categoryController= {
         if(!category){
             return res.status(404).json({ message: "Not fond" });
         }
-        return res.status(201).json({category});
+        return res.status(201).json(category);
     },
     getCategoryById: async (req, res) => {
         Categories.findById(req.params.id)// viet ham findbyid model
