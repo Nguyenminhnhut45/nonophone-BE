@@ -3,7 +3,7 @@ module.exports = (router)=> {
 
     const productController = require('../controllers/product.controller');
     //get tat ca san pham
-    router.get ('/products/', productController.getAll);
+    router.get ('/', productController.getAll);
     //get san pham theo id
     router.get ('/products/:id', productController.getByIdProduct);
     //them san pham
