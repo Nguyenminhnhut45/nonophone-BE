@@ -10,7 +10,7 @@ const cors = require ('cors')
 //convert json
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000'}));
 
 require('./api/routers/user.router')(app);
 require ('./api/routers/product.router')(app);
