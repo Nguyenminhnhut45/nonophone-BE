@@ -9,10 +9,10 @@ function PrivateRouter({ component: Component, ...rest }) {
     <Route
       {...rest}
       component={(props) => {
-        if (userInfo && userInfo.role == 'admin') {
+        if (userInfo && userInfo.role === 'admin') {
           return <Component {...props} />;
         } else {
-          return <Redirect to={"/Login"} />;
+          return <Redirect to={"/login"} />;
         }
       }}
     />

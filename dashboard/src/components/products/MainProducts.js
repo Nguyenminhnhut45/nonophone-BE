@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Product from "./Product";
-import products from "./../../data/Products";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../../Redux/actions/ProductActions";
+import Loading from "../LoadingError/Loading";
+import Message from "../LoadingError/Error";
 
 const MainProducts = () => {
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
+
+  const productDelete = useSelector((state) => state.productList);
+  const { error: errorDelete, success: successDelete } = productDelete;
+
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch, successDelete]);
   return (
     <section className="content-main">
       <div className="content-header">
-        <h2 className="content-title">Products</h2>
+        <h2 className="content-title">Product</h2>
         <div>
           <Link to="/addproduct" className="btn btn-primary">
-            Create new
+            Create Product
           </Link>
         </div>
       </div>
@@ -21,41 +35,50 @@ const MainProducts = () => {
             <div className="col-lg-4 col-md-6 me-auto ">
               <input
                 type="search"
-                placeholder="Search..."
+                placeholder="Search"
                 className="form-control p-2"
               />
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
-                <option>All category</option>
-                <option>Electronics</option>
-                <option>Clothings</option>
-                <option>Something else</option>
+                <option>All</option>
+                <option>Phone</option>
+                <option>Laptop</option>
+                <option>PC</option>
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
-                <option>Latest added</option>
-                <option>Cheap first</option>
-                <option>Most viewed</option>
+                <option>New</option>
+                <option>Cheap</option>
+                <option>Like</option>
               </select>
             </div>
           </div>
         </header>
 
         <div className="card-body">
-          <div className="row">
-            {/* Products */}
-            {products.map((product) => (
-              <Product product={product} key={product._id} />
-            ))}
-          </div>
+          {errorDelete && (
+            <Message variant="alert-danger">{errorDelete}</Message>
+          )}
+          {loading ? (
+            <Loading />
+          ) : error ? (
+            <Message variant="alert-danger">{error}</Message>
+          ) : (
+            <div className="row">
+              {/* Products */}
+              {products.map((product) => (
+                <Product product={product} key={product._id} />
+              ))}
+            </div>
+          )}
 
           <nav className="float-end mt-4" aria-label="Page navigation">
             <ul className="pagination">
               <li className="page-item disabled">
                 <Link className="page-link" to="#">
-                  Previous
+                  Before
                 </Link>
               </li>
               <li className="page-item active">
@@ -75,7 +98,7 @@ const MainProducts = () => {
               </li>
               <li className="page-item">
                 <Link className="page-link" to="#">
-                  Next
+                  After
                 </Link>
               </li>
             </ul>

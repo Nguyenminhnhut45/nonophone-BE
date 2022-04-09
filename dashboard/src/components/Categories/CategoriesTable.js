@@ -13,7 +13,7 @@ const CategoriesTable = () => {
               </div>
             </th>
             <th>ID</th>
-            <th>Name</th>
+            <th>Typr</th>
             <th>Description</th>
             <th className="text-end">Action</th>
           </tr>

@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
+import { useDispatch } from "react-redux";
+import { logout } from "../Redux/actions/userActions";
 
 const Header = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     $("[data-trigger]").on("click", function (e) {
       e.preventDefault();
@@ -22,6 +25,10 @@ const Header = () => {
     });
   }, []);
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className="main-header navbar">
       <div className="col-search">
@@ -31,7 +38,7 @@ const Header = () => {
               list="search_terms"
               type="text"
               className="form-control"
-              placeholder="Search term"
+              placeholder="Tìm kiếm ..."
             />
             <button className="btn btn-light bg" type="button">
               <i className="far fa-search"></i>
@@ -63,28 +70,27 @@ const Header = () => {
               <i className="fas fa-bell"></i>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="#">
-              English
-            </Link>
-          </li>
           <li className="dropdown nav-item">
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
               <img
                 className="img-xs rounded-circle"
-                src="/images/favicon.png"
+                src="/images/LOGOBYLONG.png"
                 alt="User"
               />
             </Link>
             <div className="dropdown-menu dropdown-menu-end">
               <Link className="dropdown-item" to="/">
-                My profile
+                Hồ sơ
               </Link>
               <Link className="dropdown-item" to="#">
-                Settings
+                Cài đặt
               </Link>
-              <Link className="dropdown-item text-danger" to="#">
-                Exit
+              <Link
+                onClick={logoutHandler}
+                className="dropdown-item text-danger"
+                to="#"
+              >
+                Đăng xuất
               </Link>
             </div>
           </li>
