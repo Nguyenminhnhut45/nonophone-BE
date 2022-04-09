@@ -4,13 +4,13 @@ require('dotenv/config');
 const port = process.env.PORT || 3030;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const cors = require ('cors')
 //const database = require ('./api/configs/database.config').mogoURL;
 
 //convert json
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
+app.use(cors());
 
 require('./api/routers/user.router')(app);
 require ('./api/routers/product.router')(app);

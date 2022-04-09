@@ -90,6 +90,23 @@ const ProductController = {
 				});
 			});
 	},
+	getFilterProduct: async (req, res) => {
+		const filter  = req.params.filter;
+		const filterProduct =await Product.filter((product)=> 
+			product.name.includes(filter)
+		);
+		try {
+			if(!filterProduct){
+				res.status(404).json("Not found");
+			}
+			return res.status(200).json({
+				data: filterProduct
+			})
+		} catch (error) {
+			res.status(500).json(error);
+		}		
+	},
+
 };
 
 module.exports = ProductController;

@@ -111,6 +111,30 @@ const categoryController= {
         });
     });
     },
+    getFilterCategory: async (req, res)=> {
+        var name_search = req.query.name ;
+        console.log(name_search)
+		const filterCategpory =await Categories.filter(cate=> {
+            cate.name == name_search;
+
+			
+            
+        }
+		);
+        console.log(filterCategpory)
+		try {
+			if(!filterCategpory){
+				res.status(404).json("Not found");
+			}
+			return res.status(200).json({
+				data: filterCategpory
+			})
+		} catch (error) {
+			res.status(500).json(error);
+		}		
+
+    },
+
 
 
 }

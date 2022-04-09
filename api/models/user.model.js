@@ -38,7 +38,7 @@ const UserSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["user", "admin"],
-      required: true,
+      default:"user",
     },
     tokens: [
       {
@@ -62,16 +62,16 @@ UserSchema.pre("save", async function (next) {
   }
   next();
 });
-
+//kiem tra email
 UserSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
   return !!user;
 };
 
 UserSchema.methods.generateAuthToken = async function () {
-  // Generate an auth token for the user
+  // tao token 
   const user = this;
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
+  const token = jwt.sign({ _id: user._id , role: user.role}, process.env.JWT_ACCESS_KEY, {expiresIn: "30d"});
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
@@ -82,7 +82,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return 1; //tra ve ket qua ko phai json tai khoan email ko ton tai
+    return 1; 
   }
   const isPasswordMatch = await bcrypt.compare(password, user.password);
 
