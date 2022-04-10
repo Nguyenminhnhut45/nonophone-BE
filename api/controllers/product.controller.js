@@ -16,7 +16,7 @@ const ProductController = {
 	},
 	getByIdProduct: async (req, res) => {
 		const productId = req.params.id;
-		const product = await Product.getByIdProduct(productId);
+		const product = await Product.findById(productId);
 		if (!product) {
 			res.status(404).json({ message: "Not found product" });
 		} else {
