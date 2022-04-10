@@ -46,10 +46,16 @@ const userControler = {
 			}
       
 			const token = await user.generateAuthToken();
+			//const refsheshToken = await user.generateRefreshToken();
+			res.cookie("token", token,{
+				httpOnly: true, 
+				//secure: false,
+				path: "/",
+				samSite: "strict",
+			})
 
-
-      const { password, ...other} = user._doc;
-
+     		const { password, ...other} = user._doc;
+			//console.log(refsheshToken);
 			res.status(200).json({ ...other, token });
 		} catch (error) {
 			res.status(400).send(error);

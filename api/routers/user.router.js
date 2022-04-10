@@ -13,7 +13,7 @@ module.exports = (router)=> {
     router.post('/users/login', userController.singIn);
 
     //load profile user
-    router.get('/users/me', userController.getProfile);
+    router.get('/users/me',auth.verifyToken, userController.getProfile);
     // //user logout
     // router.post('/users/logout', userController.dshfdsf);
 
